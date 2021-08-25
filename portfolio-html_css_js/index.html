@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Hello, World!</title>
+</head>
+<body>
+
+<nav>
+    <a href="#" class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </a>
+
+    <ul class="navbar">
+        <li><a href="#about">About me</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contacts">Contacts</a></li>
+    </ul>
+</nav>
+
+<header>
+    <h1>Charles Doe, Developer</h1>
+</header>
+
+<section  id="about">
+    <h2>About me</h2>
+    <img src="images/person.jpg" alt="my-picture">
+    <p class="info">Hi, I'm Charles Doe. I've been a major developer for 5 months now.
+    For me, programming is not just a job, it's a hobby.
+    I'm open to new knowledge, I like to study new technologies and apply them in practice.
+    <strong>Skills:</strong> Html,CSS,JS,React.
+    </p>
+</section>
+
+<section id="contacts">
+    <h2>
+        Contacts
+    </h2>
+</section>
+
+<section id="portfolio">
+    <h2>Portfolio</h2>
+
+    <div>
+        <button class="open-window" id="openwin">pop summary</button>
+        <div id="powindow" class="window" >
+
+            <div class="windowcontent">
+
+                <div class="window-header">
+
+                    <h2>Flashcards</h2>
+
+                </div>
+
+                <div class="window-body">
+                    <p>
+                        I did this project when I was studing the frontend on HyperSkill. I created a web-page
+                        with flip-down flesh cards, learned some HTML basics and learned that CSS can
+                        easily make a beautiful design.</p>
+                </div>
+                <div class="window-footer">
+                    <button id="closewin">Close</button>
+                </div>
+            </div>
+        </div>
+
+    <img src="images/project1.png" alt="first-project">
+    </div>
+
+    <div>
+        <button class="open-window">pop summary</button>
+        <img src="images/project2.png" alt="second-project">
+    </div>
+</section>
+
+<footer>
+    <p>
+        This is the footer
+    </p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
