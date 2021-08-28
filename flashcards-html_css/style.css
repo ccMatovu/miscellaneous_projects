@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Roboto+Mono:wght@300&display=swap');
+
+body{
+    background-image: url("world.png") ;
+    background-position: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+h1,p{
+    font-family: 'Roboto Mono', monospace;
+}
+
+#flex-container{
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: center;
+    display: grid;
+    grid-template-rows: 200px 200px 200px;
+    grid-template-columns: 200px 200px 200px;
+    grid-gap: 10px;
+}
+
+.card{
+    text-align: center;
+    background-color: #fff;
+    background-color: rgba(255,255,255,0.5);
+    backdrop-filter: blur(5px);
+    position: relative;
+    transition: all 1s linear;
+    transform-style: preserve-3d;
+}
+
+.front, .back {
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, serif;
+    font-size: 20px;
+    position: absolute;
+}
+
+.front {
+    color: sandybrown;
+    background: lightgoldenrodyellow;
+    z-index: 2;
+    backface-visibility: hidden;
+}
+
+.back {
+    color: lightgoldenrodyellow;
+    background: sandybrown;
+    z-index: 1;
+    transform: rotateY(180deg);
+}
+
+.container:hover .card {
+    transform: rotateY(180deg);
+}
+
+
+
