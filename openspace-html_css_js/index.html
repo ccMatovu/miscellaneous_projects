@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Open Space</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <div class="space">
+        <div class="planet-area">
+           <img class="planet" src="mars.png">
+            <img class="rocket" src="rocket.png">
+        </div>
+
+        <div class="control-panel">
+            <div class="control-panel__inner">
+                <div class = "check-buttons">
+
+                    <input type="checkbox" disabled="true" class="leverAndCheckbox" onchange="checkLevels()">
+                    <input type="checkbox" disabled="true" class="leverAndCheckbox" onchange="checkLevels()">
+                    <input type="checkbox" disabled="true" class="leverAndCheckbox" onchange="checkLevels()">
+                    <input type="checkbox" disabled="true" class="leverAndCheckbox" onchange="checkLevels()">
+                    <input type="checkbox" disabled="true" class="leverAndCheckbox" onchange="checkLevels()">
+                    <input type="checkbox" disabled="true" class="leverAndCheckbox" onchange="checkLevels()">
+                </div>
+                <div class="levers">
+                    <input type="range" disabled="true" max = "10" class="leverAndCheckbox" onchange="checkLevels()">
+                    <input type="range" disabled="true" max = "10" class="leverAndCheckbox" onchange="checkLevels()">
+                    <input type="range" disabled="true" max = "10" class="leverAndCheckbox" onchange="checkLevels()">
+                    <input type="range" disabled="true" max = "10" class="leverAndCheckbox" onchange="checkLevels()">
+                    <input type="range" disabled="true" max = "10" class="leverAndCheckbox" onchange="checkLevels()">
+                </div>
+
+                <input id="password-text" type="password" name="Enter password">
+                <input id="Ok-button" type="button" name="ok"  value="ok">
+                <input id="launch-button" type="button" name="launch" value="launch" disabled="true">
+
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
