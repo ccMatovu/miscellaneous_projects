@@ -1,4 +1,3 @@
-import reactDom from "react-dom";
 
 const Navbar = ()=>{
     return (<nav className='navbar'>
