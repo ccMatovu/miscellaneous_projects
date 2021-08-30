@@ -13,6 +13,10 @@
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
 }
+.home{
+  width: 800px;
+  height: auto;
+}
 .navbar h1 {
   color: #f1356d;
 }
