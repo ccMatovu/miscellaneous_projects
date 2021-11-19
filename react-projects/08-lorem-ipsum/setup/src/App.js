@@ -5,8 +5,15 @@ function App() {
   const [text,setText] = useState([]);
   
   const handleSubmit = (e)=>{
-    e.preventDefault();
-    console.log('hello world');
+   e.preventDefault()
+   let amount = parseInt(count)
+   if (count <= 0) {
+     amount = 1
+   }
+   if (count > 8) {
+     amount = 8
+   }
+   setText(data.slice(0, amount))
   };
 
   return (
@@ -16,8 +23,19 @@ function App() {
       <label htmlFor='amount'>
         paragra:
       </label>
-      <input type='number' name='amount' id='amount'/>
+      <input type='number' name='amount' id='amount'
+      value={count}
+      onChange={(e)=>setCount(e.target.value)}
+      />
+      <button type="submit" className="btn">generate</button>
     </form>
+    <article className="lorem-text">
+
+      {text.map((item,index)=>{
+        return <p>{item}</p>
+      })}
+
+    </article>
   </section>
     )
 }
