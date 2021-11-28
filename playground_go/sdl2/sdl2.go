@@ -7,11 +7,28 @@ import (
 		//"github.com/vean/sdl"
 )
 
+const winWidith int = 800
+const	winHeight int = 600
+
+type color struct{
+	r,g,b byte
+}
+
+
+func setPixel(x, y int, c color, pixels []byte) {
+	index := (y*winWidith + x) * 4
+	if index < len(pixels)-4 && index >= 0 {
+		pixels[index] = c.r
+		pixels[index+1] = c.g
+		pixels[index+2] = c.b
+	}
+
+}
+
 
 func main(){
 
-	winWidith := 800
-	winHeight := 600
+	
 	if err := sdl.Init(sdl.INIT_EVERYTHING); err != nil {
 		panic(err)
 	}
@@ -41,15 +58,20 @@ tex,err := renderer.CreateTexture(sdl.PIXELFORMAT_ABGR8888,sdl.TEXTUREACCESS_STR
 		fmt.Println(err)
 		return
 	}
-
+	
 	defer tex.Destroy()
 
+	pixels := make([]byte,winWidith*winHeight)
 
+	for y := 0; y < winHeight; y++ {
+		for x:=0; x<winWidith;x++{
+			setPixel(x,y,color{byte(x%254),88,0},pixels)
+		}	
+	}
 
+	tex.Update(nil,pixels,winWidith*4)
+	renderer.Copy(tex,nil,nil)
+	renderer.Present()
 
-
-
-
-	
 sdl.Delay(2000)
 }
