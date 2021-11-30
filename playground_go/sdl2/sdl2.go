@@ -63,11 +63,13 @@ tex,err := renderer.CreateTexture(sdl.PIXELFORMAT_ABGR8888,sdl.TEXTUREACCESS_STR
 
 	pixels := make([]byte,winWidith*winHeight)
 
+	/* test code uncomment
 	for y := 0; y < winHeight; y++ {
 		for x:=0; x<winWidith;x++{
 			setPixel(x,y,color{byte(x%254),88,0},pixels)
 		}	
 	}
+	*/
 
 	tex.Update(nil,pixels,winWidith*4)
 	renderer.Copy(tex,nil,nil)
