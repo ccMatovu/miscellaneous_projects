@@ -15,7 +15,7 @@ import (
 	"math"
 	"time"
 
-	"github.com/jackmott/noise"
+	"github.com/cptChucky/pong/noise"
 	"github.com/veandco/go-sdl2/sdl"
 )
 
