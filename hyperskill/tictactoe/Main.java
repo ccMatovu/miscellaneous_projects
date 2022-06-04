@@ -4,23 +4,33 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         // write your code here
-        Scanner  cells = new Scanner(System.in);
-        System.out.print("Enter cells: ");
-        String input = cells.nextLine();
-
-        printBoard(input);
-        int position = getValidatePosition();
-        String game = placeX(input,position);
-        gameState(game);
+        String gameBoard = "         ";
+        String player1 = "X";
+        String player2 = "O";
+        boolean player1Turn = true;
+        boolean player2Turn = false;
+        while (!gameState(gameBoard)){
+            if (player1Turn){
+                int position = getValidatePosition();
+                gameBoard = placeX(gameBoard,position,player1);
+                player1Turn = false;
+                player2Turn = true;
+            }else if(player2Turn){
+                int position = getValidatePosition();
+                gameBoard = placeX(gameBoard,position,player2);
+                player1Turn = true;
+                player2Turn = false;
+            }
+        }
     }
-    public static String placeX(String input,int position){
+    public static String placeX(String input,int position,String player){
         String newBoard = "";
         boolean xIsplaced = false;
         while(!xIsplaced) {
             switch (position) {
                 case 11:
-                    if (input.charAt(0) == '_') {
-                        newBoard = "X" + input.substring(1, 9);
+                    if (input.charAt(0) == ' ') {
+                        newBoard = player + input.substring(1, 9);
                         xIsplaced = true;
                     } else {
                         System.out.println("This cell is occupied! Choose another one!");
@@ -28,8 +38,8 @@ public class Main {
                     }
                 break;
                 case 12:
-                    if (input.charAt(1) == '_') {
-                        newBoard = input.charAt(0)+ "X" + input.substring(2, 9);
+                    if (input.charAt(1) == ' ') {
+                        newBoard = input.charAt(0)+ player + input.substring(2, 9);
                         xIsplaced = true;
                     } else {
                         System.out.println("This cell is occupied! Choose another one!");
@@ -37,8 +47,8 @@ public class Main {
                     }
                     break;
                 case 13:
-                    if (input.charAt(2) == '_') {
-                        newBoard = input.substring(0,2)+"X" + input.substring(3, 9);
+                    if (input.charAt(2) == ' ') {
+                        newBoard = input.substring(0,2)+ player + input.substring(3, 9);
                         xIsplaced = true;
                     } else {
                         System.out.println("This cell is occupied! Choose another one!");
@@ -46,8 +56,8 @@ public class Main {
                     }
                     break;
                 case 21:
-                    if (input.charAt(3) == '_') {
-                        newBoard = input.substring(0,3)+"X" + input.substring(4, 9);
+                    if (input.charAt(3) == ' ') {
+                        newBoard = input.substring(0,3)+ player + input.substring(4, 9);
                         xIsplaced = true;
                     } else {
                         System.out.println("This cell is occupied! Choose another one!");
@@ -55,8 +65,8 @@ public class Main {
                     }
                     break;
                 case 22:
-                    if (input.charAt(4) == '_') {
-                        newBoard = input.substring(0,4)+"X" + input.substring(5, 9);
+                    if (input.charAt(4) == ' ') {
+                        newBoard = input.substring(0,4)+ player + input.substring(5, 9);
                         xIsplaced = true;
                     } else {
                         System.out.println("This cell is occupied! Choose another one!");
@@ -64,8 +74,8 @@ public class Main {
                     }
                     break;
                 case 23:
-                    if (input.charAt(5) == '_') {
-                        newBoard = input.substring(0,5)+"X" + input.substring(6, 9);
+                    if (input.charAt(5) == ' ') {
+                        newBoard = input.substring(0,5)+ player + input.substring(6, 9);
                         xIsplaced = true;
                     } else {
                         System.out.println("This cell is occupied! Choose another one!");
@@ -73,8 +83,8 @@ public class Main {
                     }
                     break;
                 case 31:
-                    if (input.charAt(6) == '_') {
-                        newBoard = input.substring(0,6)+"X" + input.substring(7, 9);
+                    if (input.charAt(6) == ' ') {
+                        newBoard = input.substring(0,6)+ player + input.substring(7, 9);
                         xIsplaced = true;
                     } else {
                         System.out.println("This cell is occupied! Choose another one!");
@@ -82,8 +92,8 @@ public class Main {
                     }
                     break;
                 case 32:
-                    if (input.charAt(7) == '_') {
-                        newBoard = input.substring(0,7)+"X" + input.charAt(8);
+                    if (input.charAt(7) == ' ') {
+                        newBoard = input.substring(0,7)+ player + input.charAt(8);
                         xIsplaced = true;
                     } else {
                         System.out.println("This cell is occupied! Choose another one!");
@@ -91,8 +101,8 @@ public class Main {
                     }
                     break;
                 case 33:
-                    if (input.charAt(8) == '_') {
-                        newBoard = input.substring(0, 8)+"X";
+                    if (input.charAt(8) == ' ') {
+                        newBoard = input.substring(0, 8)+ player;
                         xIsplaced = true;
                     } else {
                         System.out.println("This cell is occupied! Choose another one!");
@@ -105,13 +115,13 @@ public class Main {
     }
     public static int getValidatePosition(){
         Scanner scan = new Scanner(System.in);
-
         int position = 0;
         String coordinates = "";
         boolean notANumber = false;
         boolean inValidNumber = false;
         System.out.print("Enter the coordinates: ");
         coordinates = scan.nextLine().replaceAll("\\s+","").trim();
+
         boolean correctCoordinates = false;
         while (!correctCoordinates ){
             String positions = "11 12 13 21 22 23 31 32 33";
@@ -125,7 +135,6 @@ public class Main {
                 coordinates = scan.nextLine().replaceAll("\\s+","").trim();
             }
 
-
             try{
                 position = Integer.parseInt(coordinates);
                 notANumber = false;
@@ -136,16 +145,13 @@ public class Main {
 
             if (!positions.contains(Integer.toString(position))){
                 inValidNumber = true;
-                //notANumber = false;
                 continue;
             }
-
             correctCoordinates =true;
-
         }
         return position;
     }
-    public static void gameState(String input){
+    public static boolean gameState(String input){
         if(countChar(input,"X")-2 >= countChar(input,"O")){
             printBoard(input);
             System.out.println("Impossible");
@@ -158,16 +164,20 @@ public class Main {
         }else if (threeInaRow(input,'X')){
             printBoard(input);
             System.out.println("X wins");
+            return true;
         }else if(threeInaRow(input,'O')){
             printBoard(input);
             System.out.println("O wins");
+            return true;
         }else if(countChar(input,"_") == 0 && (countChar(input, "X") + countChar(input,"O") ==9) ){
             printBoard(input);
             System.out.println("Draw");
+            return true;
         }else{
             printBoard(input);
             System.out.println("Game not finished");
         }
+        return false;
     }
     public static void printBoard(String input){
         String dashes = "---------";
