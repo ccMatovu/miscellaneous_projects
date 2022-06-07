@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scan = new Scanner(System.in);
-        System.out.print("Enter num: ");
+        System.out.print("> ");
         int digits = scan.nextInt();
         //String[]  input = scan.nextLine().split("");
         ArrayList<Integer> code = new ArrayList<>();
@@ -17,22 +17,29 @@ public class Main {
         code.add(5);
 //        String result = grader(code, guess);
 //        System.out.println(result+secret+".");
-        
+
         String randomNum = getRandomNumber(digits);
 
-        System.out.println("  digits = "+digits+"  rand= "+randomNum);
+        //System.out.println("  digits = "+digits+"  rand= "+randomNum);
+        System.out.println("The random secret number is "+randomNum+".");
 
     }
     public static String getRandomNumber(int digits){
+        if(digits > 10){
+            System.out.println("Error: can't generate a secret number with a length of 11 because there aren't enough unique digits.");
+            //return;
+        }
+        StringBuilder randomNumber = new StringBuilder();
         int numOfDigits = digits;
         long pseudoRandomNumber = System.nanoTime();
-        System.out.println(pseudoRandomNumber);
+        //System.out.println(pseudoRandomNumber);
         String pRand = String.valueOf(pseudoRandomNumber);
         ArrayList<Integer> randomNums = new ArrayList<>();
         for(int i=pRand.length()-1,  j =0; j<numOfDigits; j++ ,i--){
             int digit = Character.getNumericValue(pRand.charAt(i));
             if(!randomNums.contains(digit)){
                 randomNums.add(digit);
+                randomNumber.append(digit);
             }else {
                 numOfDigits++;
             }
@@ -40,13 +47,14 @@ public class Main {
                 pseudoRandomNumber = System.nanoTime();
                 pRand = String.valueOf(pseudoRandomNumber);
                 randomNums.clear();
+                randomNumber.setLength(0);
                 j =0;
                 i = pRand.length()-1;
                 numOfDigits = digits;
                 System.out.println(pRand);
             }
         }
-        return randomNums.toString();
+        return randomNumber.toString();
     }
     public static String grader(ArrayList<Integer> code, ArrayList<String> guess){
         int cows = 0;
