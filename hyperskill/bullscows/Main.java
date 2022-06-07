@@ -5,29 +5,31 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scan = new Scanner(System.in);
-        System.out.print("> ");
+        System.out.print("Please, enter the secret code's length:\n>");
         int digits = scan.nextInt();
-        //String[]  input = scan.nextLine().split("");
-        ArrayList<Integer> code = new ArrayList<>();
-        int secret = 9305;
-       // ArrayList<String> guess = new ArrayList<>(Arrays.asList(input));
-        code.add(9);
-        code.add(3);
-        code.add(0);
-        code.add(5);
-//        String result = grader(code, guess);
-//        System.out.println(result+secret+".");
-
-        String randomNum = getRandomNumber(digits);
-
-        //System.out.println("  digits = "+digits+"  rand= "+randomNum);
-        System.out.println("The random secret number is "+randomNum+".");
-
+        System.out.println("Okay, let's start a game!");
+        ArrayList<Integer> randomNum = getRandomNumber(digits);
+        System.out.println("random number is = "+randomNum);
+        boolean notGuessed = true;
+        int turns = 0;
+        while (notGuessed){
+            turns++;
+            System.out.print("Turn "+turns+":\n> ");
+            String[]  input = scan.next().split("");
+            ArrayList<String> guess = new ArrayList<>(Arrays.asList(input));
+           // System.out.println("guess is = "+guess);
+            String result = grader(randomNum, guess);
+            if(Character.getNumericValue(result.charAt(7)) == digits){
+                System.out.println("Grade: "+digits+" bulls\nCongratulations! You guessed the secret code.\n");
+                notGuessed = false;
+            }else{
+                System.out.println(result);
+            }
+        }
     }
-    public static String getRandomNumber(int digits){
+    public static ArrayList<Integer> getRandomNumber(int digits){
         if(digits > 10){
             System.out.println("Error: can't generate a secret number with a length of 11 because there aren't enough unique digits.");
-            //return;
         }
         StringBuilder randomNumber = new StringBuilder();
         int numOfDigits = digits;
@@ -54,7 +56,8 @@ public class Main {
                 System.out.println(pRand);
             }
         }
-        return randomNumber.toString();
+        //return randomNumber.toString();
+        return randomNums;
     }
     public static String grader(ArrayList<Integer> code, ArrayList<String> guess){
         int cows = 0;
@@ -72,9 +75,9 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         sb.append("Grade: ");
         sb.append(bulls);
-        sb.append(" bull(s) and ");
+        sb.append(" bull and ");
         sb.append(cows);
-        sb.append(" cow(s). The secret code is ");
+        sb.append(" cow");
         return sb.toString();
     }
 }
