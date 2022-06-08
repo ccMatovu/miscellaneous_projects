@@ -20,8 +20,8 @@ public class Main {
             System.out.println("Error: it's not possible to generate a code with a length of 6 with 5 unique symbols.");
             return;
         }
-        String randomNumber = getRandomNumber(digits,symbols);
 
+        String randomNumber = getRandomNumber(digits,symbols);
         String[] ra = range(symbols);
         String low = ra[2];
         String upp = ra[3];
@@ -31,7 +31,6 @@ public class Main {
 
 
         ArrayList<String> randomNum = new ArrayList<>(Arrays.asList(randomNumber.split("")));
-        //System.out.println("random number is = "+randomNum);
         boolean notGuessed = true;
         int turns = 0;
         while (notGuessed){
@@ -39,7 +38,6 @@ public class Main {
             System.out.print("Turn "+turns+":\n> ");
             String[]  input = scan.next().split("");
             ArrayList<String> guess = new ArrayList<>(Arrays.asList(input));
-           // System.out.println("guess is = "+guess);
             String result = grader(randomNum, guess);
             if(Character.getNumericValue(result.charAt(7)) == digits){
                 System.out.println("Grade: "+digits+" bulls\nCongratulations! You guessed the secret code.\n");
@@ -60,20 +58,12 @@ public class Main {
         if(upper == 48){
             upper = range[1].charAt(0);
         }
-
-
-//        int nUpp = range[1].charAt(0);
-//        int upper = (nUpp <=9) ? nUpp : range[3].toUpperCase().charAt(0);
-        //System.out.println(range[3].toUpperCase());
-        //System.out.println("lower = "+lower+"  uper = "+upper);
         ArrayList<Integer> number = new ArrayList<>();
         String secret = "";
         int length  = 0;
         while(length < digits){
-
             Random random = new Random();
             int num = random.nextInt((upper-lower)+1) + lower;
-            //System.out.println("in here"+num);
             while (!Character.isLetterOrDigit(num)){
                 System.out.println(num);
                 num = random.nextInt(upper-lower) + lower;
@@ -86,7 +76,6 @@ public class Main {
             }else{
                String numm = String.valueOf((char) num);
                 number.add(num);
-                //number.add(Character.getNumericValue(num));
                 secret = secret+ numm.toLowerCase();
                 ++length;
             }
@@ -94,16 +83,6 @@ public class Main {
         System.out.println("list = "+number);
         return secret;
     }
-
-//    public static void main(String[] args) {
-//        String[] range = range(11);
-//        System.out.println(Arrays.asList(range));
-//        int a = range[2].charAt(0);
-////        a = 64;
-////        System.out.println(a);
-////        System.out.println(Character.isLetterOrDigit(a));
-//        System.out.println(getRandomNumber(5,11));
-//    }
     public static String[] range(int num){
         String[] range = new String[4];
         String lower = "0";
@@ -121,10 +100,6 @@ public class Main {
         }
         return range;
     }
-//    public static String randomChar(int lower,int upper){
-//
-//    }
-
     public static String grader(ArrayList<String> code, ArrayList<String> guess){
         int cows = 0;
         int bulls = 0;
