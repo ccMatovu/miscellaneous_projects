@@ -6,9 +6,20 @@ public class Main {
 
         Scanner scan = new Scanner(System.in);
         System.out.print("Input the length of the secret code:\n>");
-        int digits = scan.nextInt();
-        System.out.print("Input the number of possible symbols in the code:\n>");
-        int symbols = scan.nextInt();
+        int digits,symbols;
+        try{
+             digits = scan.nextInt();
+            System.out.print("Input the number of possible symbols in the code:\n>");
+             symbols = scan.nextInt();
+        }catch (Exception e){
+            System.out.println("Error: \"abc 0 -7\" isn't a valid number.\n");
+            return;
+        }
+
+        if((symbols < digits) || digits ==0 || symbols > 36){
+            System.out.println("Error: it's not possible to generate a code with a length of 6 with 5 unique symbols.");
+            return;
+        }
         String randomNumber = getRandomNumber(digits,symbols);
 
         String[] ra = range(symbols);
