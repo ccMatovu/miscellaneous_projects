@@ -1,31 +1,51 @@
 package encryptdecrypt;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-//        String m = "we found a treasure!";
-//        System.out.println(reverse(m));
-//        Scanner scanner = new Scanner(System.in);
-//        String input = scanner.nextLine();
-//        int amount = scanner.nextInt();
-//        System.out.println(shift(input,amount));
-//        System.out.println(getPosition("b"));
-//        System.out.println(encrypt("Welcome to hyperskill!",5));
-//        System.out.println(decrypt("\\jqhtrj%yt%m~ujwxpnqq&",5));
-        Scanner scanner = new Scanner(System.in);
-        String code = scanner.nextLine();
-        String message = scanner.nextLine();
-        int amount = Integer.parseInt(scanner.nextLine());
-        System.out.println("code in = "+code+"  meass is = "+message+"   amoun is= "+amount);
-        if(code.equals("enc")){
-            System.out.println(encrypt(message,amount));
+//        System.out.println(Arrays.asList(args));
+//        System.out.println(Arrays.asList(getArgs(args)));
+        String[] arguments = getArgs(args);
+        int amount = Integer.parseInt(arguments[1]);
+        if(arguments[0].equals("enc")){
+            System.out.println(encrypt(arguments[2],amount));
         }else{
-            System.out.println(decrypt(message,amount));
+            System.out.println(decrypt(arguments[2],amount));
         }
-
+    }
+    public static String[] getArgs(String[] args){
+        String[] arguments = new String[3];
+        for(int i = 0; i<args.length; i++){
+            try{
+                if(args[i].equals("-mode")){
+                    arguments[0] = args[i+1];
+                    continue;
+                }
+            }catch (Exception e){
+                arguments[0] ="enc";
+            }
+            try {
+                if(args[i].equals("-key")){
+                    arguments[1] = args[i+1];
+                    continue;
+                }
+            }catch (Exception e){
+                arguments[1] = "0";
+            }
+            try {
+                if(args[i].equals("-data")){
+                    arguments[2] = args[i+1];
+                    continue;
+                }
+            }catch (Exception e){
+                arguments[2] = "";
+            }
+        }
+        return arguments;
     }
     public static String decrypt(String message,int amount){
         StringBuilder sb = new StringBuilder();
