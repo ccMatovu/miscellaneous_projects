@@ -4,19 +4,40 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
-//        System.out.println(Arrays.asList(args));
-//        System.out.println(Arrays.asList(getArgs(args)));
-        String[] arguments = getArgs(args);
-        int amount = Integer.parseInt(arguments[1]);
-        if(arguments[0].equals("enc")){
-            System.out.println(encrypt(arguments[2],amount));
-        }else{
-            System.out.println(decrypt(arguments[2],amount));
+        System.out.println("check");
+        File file = new File("/home/charles/Downloads/dataset_91065.txt");
+        try {
+            Scanner scan = new Scanner(file);
+            int count =0;
+            while(scan.hasNextInt()){
+                int i = scan.nextInt();
+                if(i == 0){
+                    break;
+                }if(i % 2 == 0){
+                    ++count;
+                    System.out.println(count);
+                }
+            }
+        }catch (Exception e ){
+            System.out.println("no file");
         }
+
     }
+//    public static void main(String[] args) {
+////        System.out.println(Arrays.asList(args));
+////        System.out.println(Arrays.asList(getArgs(args)));
+//        String[] arguments = getArgs(args);
+//        int amount = Integer.parseInt(arguments[1]);
+//        if(arguments[0].equals("enc")){
+//            System.out.println(encrypt(arguments[2],amount));
+//        }else{
+//            System.out.println(decrypt(arguments[2],amount));
+//        }
+//    }
     public static String[] getArgs(String[] args){
         String[] arguments = new String[3];
         for(int i = 0; i<args.length; i++){
