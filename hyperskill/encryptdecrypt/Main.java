@@ -1,46 +1,87 @@
 package encryptdecrypt;
 
+import java.io.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("check");
-        File file = new File("/home/charles/Downloads/dataset_91065.txt");
-        try {
-            Scanner scan = new Scanner(file);
-            int count =0;
-            while(scan.hasNextInt()){
-                int i = scan.nextInt();
-                if(i == 0){
-                    break;
-                }if(i % 2 == 0){
-                    ++count;
-                    System.out.println(count);
-                }
-            }
-        }catch (Exception e ){
-            System.out.println("no file");
-        }
+//        System.out.println(Arrays.asList(args));
+//        System.out.println(Arrays.asList(getArgs(args)));
+        String[] arguments = getArgs(args);
+        System.out.println(Arrays.asList(arguments));
+        int amount = Integer.parseInt(arguments[1]);
+        File fileOut = new File(arguments[4]);
+        System.out.println(fileOut.getName());
+        if(!arguments[3].equals("") && arguments[2].equals("")){
+            File file = new File(arguments[3]);
+            System.out.println("file in = "+arguments[3]+file.getAbsolutePath());
+            try (Scanner scanner = new Scanner(file)) {
+                FileWriter fileWriter = new FileWriter(fileOut);
+                while (scanner.hasNext()) {
+                    String line = scanner.nextLine();
+                    System.out.println("line is =  "+line);
+                    if(arguments[4].equals("")){
+                        if(arguments[0].equals("enc")){
+                            System.out.println(encrypt(line,amount));
+                        }else{
+                            System.out.println(decrypt(line,amount));
+                        }
+                    }else{
+                        if(arguments[0].equals("enc")){
+                            fileWriter.write(encrypt(line,amount));
+                            fileWriter.flush();
+                            fileWriter.close();
+                            System.out.println("in printg"+encrypt(line,amount));
+                            System.out.println(fileOut.getAbsolutePath());
+                        }else{
+                            fileWriter.write(decrypt(line,amount));
+                            fileWriter.flush();
+                            fileWriter.close();
+                        }
+                    }
 
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("No file found: ");
+            } catch (IOException e) {
+                System.out.println("file out exception");
+
+            }
+
+        }
+        try (  Scanner scan = new Scanner(fileOut)){
+            System.out.println("the scan = =="+scan.next());
+        }catch (Exception e){
+            System.out.println("and ececption");
+        }
+        if(arguments[0].equals("enc")){
+            System.out.println(encrypt(arguments[2],amount));
+        }else{
+            System.out.println(decrypt(arguments[2],amount));
+        }
     }
-//    public static void main(String[] args) {
-////        System.out.println(Arrays.asList(args));
-////        System.out.println(Arrays.asList(getArgs(args)));
-//        String[] arguments = getArgs(args);
-//        int amount = Integer.parseInt(arguments[1]);
-//        if(arguments[0].equals("enc")){
-//            System.out.println(encrypt(arguments[2],amount));
-//        }else{
-//            System.out.println(decrypt(arguments[2],amount));
-//        }
-//    }
     public static String[] getArgs(String[] args){
-        String[] arguments = new String[3];
+        String[] arguments = new String[]{"","","","",""};
         for(int i = 0; i<args.length; i++){
+            try{
+                if(args[i].equals("-out")){
+                    arguments[4] = args[i+1];
+                    continue;
+                }
+            }catch (Exception e){
+                arguments[4] ="";
+            }
+            try{
+                if(args[i].equals("-in")){
+                    arguments[3] = args[i+1];
+                    continue;
+                }
+            }catch (Exception e){
+                arguments[3] ="";
+            }
             try{
                 if(args[i].equals("-mode")){
                     arguments[0] = args[i+1];
