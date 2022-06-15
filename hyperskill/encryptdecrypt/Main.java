@@ -1,10 +1,12 @@
 package encryptdecrypt;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,16 +15,13 @@ public class Main {
         String[] arguments = getArgs(args);
         System.out.println(Arrays.asList(arguments));
         int amount = Integer.parseInt(arguments[1]);
-        File fileOut = new File(arguments[4]);
-        System.out.println(fileOut.getName());
+        File fileOut = new File("protected.txt");
         if(!arguments[3].equals("") && arguments[2].equals("")){
             File file = new File(arguments[3]);
-            System.out.println("file in = "+arguments[3]+file.getAbsolutePath());
             try (Scanner scanner = new Scanner(file)) {
-                FileWriter fileWriter = new FileWriter(fileOut);
+                PrintWriter printWriter = new PrintWriter(fileOut);
                 while (scanner.hasNext()) {
                     String line = scanner.nextLine();
-                    System.out.println("line is =  "+line);
                     if(arguments[4].equals("")){
                         if(arguments[0].equals("enc")){
                             System.out.println(encrypt(line,amount));
@@ -31,31 +30,17 @@ public class Main {
                         }
                     }else{
                         if(arguments[0].equals("enc")){
-                            fileWriter.write(encrypt(line,amount));
-                            fileWriter.flush();
-                            fileWriter.close();
-                            System.out.println("in printg"+encrypt(line,amount));
-                            System.out.println(fileOut.getAbsolutePath());
+                            printWriter.print(encrypt(line,amount));
                         }else{
-                            fileWriter.write(decrypt(line,amount));
-                            fileWriter.flush();
-                            fileWriter.close();
+                            printWriter.print(decrypt(line,amount));
                         }
                     }
 
                 }
             } catch (FileNotFoundException e) {
                 System.out.println("No file found: ");
-            } catch (IOException e) {
-                System.out.println("file out exception");
-
             }
 
-        }
-        try (  Scanner scan = new Scanner(fileOut)){
-            System.out.println("the scan = =="+scan.next());
-        }catch (Exception e){
-            System.out.println("and ececption");
         }
         if(arguments[0].equals("enc")){
             System.out.println(encrypt(arguments[2],amount));
