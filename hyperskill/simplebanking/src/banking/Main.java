@@ -10,42 +10,6 @@ public class Main {
     static HashMap<Integer,Long> accounts = new HashMap();
     public static void main(String[] args) {
         goToBank();
-//        int s = getSum("400000844943340");
-//        System.out.println(checkLuhm(s,3));
-//        System.out.println(s);
-        //String number = "400000844943340";
-//        String number = "400000493832089";
-//        Random num = new Random();
-//        int newNum = num.nextInt(10);
-//        //System.out.println(newNum);
-//        int sum = getSum(number);
-//        System.out.println(checkLuhm(sum,newNum));
-//        while (checkLuhm(sum,newNum) != true){
-//            System.out.println("The sum is = "+sum+"   and number is ="+newNum);
-//            System.out.println(checkLuhm(sum,newNum));
-//            newNum = num.nextInt(10);
-//
-//        }
-//        System.out.println("The sum is = "+sum+"   and number is ="+newNum);
-//        System.out.println(checkLuhm(sum,newNum));
-        //System.out.println("sfdsa");
-    }
-    public  static String generateNumber(){
-        StringBuilder number = new StringBuilder();
-        Random num = new Random();
-        number.append("400000");
-        for(int i =0; i<10; i++){
-            int newNum = num.nextInt(10);
-            if(i == 9){
-                int sum = getSum(number.toString());
-                while (!checkLuhm(sum,newNum)){
-                    newNum = num.nextInt(10);
-                }
-            }
-            number.append(newNum);
-
-        }
-        return number.toString();
     }
     public static boolean checkLuhm(int sum, int lastDigit){
         sum = sum + lastDigit;
