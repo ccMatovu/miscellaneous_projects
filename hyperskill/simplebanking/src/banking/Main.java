@@ -9,6 +9,67 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Main {
     static HashMap<Integer,Long> accounts = new HashMap();
     public static void main(String[] args) {
+        goToBank();
+//        int s = getSum("400000844943340");
+//        System.out.println(checkLuhm(s,3));
+//        System.out.println(s);
+        //String number = "400000844943340";
+//        String number = "400000493832089";
+//        Random num = new Random();
+//        int newNum = num.nextInt(10);
+//        //System.out.println(newNum);
+//        int sum = getSum(number);
+//        System.out.println(checkLuhm(sum,newNum));
+//        while (checkLuhm(sum,newNum) != true){
+//            System.out.println("The sum is = "+sum+"   and number is ="+newNum);
+//            System.out.println(checkLuhm(sum,newNum));
+//            newNum = num.nextInt(10);
+//
+//        }
+//        System.out.println("The sum is = "+sum+"   and number is ="+newNum);
+//        System.out.println(checkLuhm(sum,newNum));
+        //System.out.println("sfdsa");
+    }
+    public  static String generateNumber(){
+        StringBuilder number = new StringBuilder();
+        Random num = new Random();
+        number.append("400000");
+        for(int i =0; i<10; i++){
+            int newNum = num.nextInt(10);
+            if(i == 9){
+                int sum = getSum(number.toString());
+                while (!checkLuhm(sum,newNum)){
+                    newNum = num.nextInt(10);
+                }
+            }
+            number.append(newNum);
+
+        }
+        return number.toString();
+    }
+    public static boolean checkLuhm(int sum, int lastDigit){
+        sum = sum + lastDigit;
+        if(sum%10 == 0){
+            return true;
+        }
+        return false;
+    }
+    public static int getSum(String number){
+        int sum = 0;
+        for(int i =0; i<number.length();i++){
+            int digit = Character.getNumericValue(number.charAt(i));
+            if(i%2 == 0){
+                digit = digit * 2;
+            }
+            if(digit > 9){
+                digit = digit -9;
+            }
+            sum += digit;
+        }
+        return sum;
+    }
+
+    public static void goToBank(){
         System.out.println(startMenu());
         String choice = input();
         boolean logedIn = false;
@@ -16,30 +77,33 @@ public class Main {
             if (choice.equals("1")) {
                 Account account = new Account();
                 accounts.put(account.cardPin(), account.cardNumber());
-                System.out.println(account.toString());
+                System.out.println(account.toString()+"\n");
             } else if (choice.equals("2")) {
                 logedIn = logINMenu();
                 if(logedIn){
                     System.out.println(balanceMenu());
-                    choice = input();
-                    if(choice.equals("1")){
+                    String balanceChoice = input();
+                    if(balanceChoice.equals("1")){
                         boolean displayBalance = true;
                         while (displayBalance){
                             System.out.println("Balance: 0");
                             System.out.println(balanceMenu());
-                            String balanceChoice = input();
+                            balanceChoice = input();
                             if(balanceChoice.equals("0")){
                                 System.out.println("Bye!");
                                 return;
                             }else if(balanceChoice.equals("2")){
+                                System.out.println("You have successfully logged out!");
                                 displayBalance = false;
                             }
                         }
                     }
+                }else{
+                    System.out.println("Wrong card number or PIN!");
                 }
             }
 
-            System.out.println(startMenu());
+            System.out.println(startMenu()+"\n");
             choice = input();
 
         }
@@ -55,17 +119,13 @@ public class Main {
         if(accounts.containsKey(pin) && accounts.containsValue(number)){
             System.out.println("You have successfully logged in!");
             return true;
-        }else{
-            System.out.println("Wrong card number or PIN!");
         }
-
         return false;
     }
     public static String input(){
         Scanner scanner = new Scanner(System.in);
         System.out.print(">");
-        String input = scanner.nextLine();
-        scanner.close();
+        String input = scanner.next();
         return input;
     }
 
