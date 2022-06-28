@@ -10,45 +10,56 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
     static HashMap<Integer,Long> accounts = new HashMap();
+    Connection connection;
     public static void main(String[] args) {
-        createNewDatabase("test.db");
-        //goToBank();
-        String jbUrl = "jdbc:sqlite:/home/charles/edu1.db";
-        try {
-            Connection con = DriverManager.getConnection(jbUrl);
-            String sql = "SELECT * FROM pets ";
-            Statement statement = con.createStatement();
-            ResultSet result = statement.executeQuery(sql);
-            while (result.next()){
-                String id = result.getString("pet_id");
-                String name = result.getString("name");
-                System.out.println("The name is "+name+"\nthe id is "+id);
+       // goToBank();
+        String database = getDatabaseName(args);
+        createNewDatabase(database);
+        System.out.println(database);
+    }
+    public static String getDatabaseName(String[] args){
+        String name="";
+        for(int i=0; i<args.length;i++){
+            if(args[i].equals("-fileName")){
+                name = args[i+1];
             }
-        }catch (SQLException e){
-            System.out.println("err");
-            e.printStackTrace();
         }
+        return name;
     }
 
     public static void createNewDatabase(String fileName) {
-        String url = "jdbc:sqlite:/home/charles/databases/" + fileName;
+        String url = "jdbc:sqlite:" + fileName;
+        Statement stmt = null;
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
                 System.out.println("The driver name is " + meta.getDriverName());
                 System.out.println("A new database has been created.");
+
+
+
+                System.out.println("Opened database successfully");
+
+                stmt = conn.createStatement();
+                String sql = "CREATE TABLE COMPANY " +
+                        "(id INT," +
+                        " number TEXT, " +
+                        " pin TEXT, " +
+                        " balance INTEGER DEFAULT 0)";
+                stmt.executeUpdate(sql);
+                stmt.close();
+                conn.close();
+
+
+
+
             }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-
-
-
-
-
 
     public static boolean checkLuhm(int sum, int lastDigit){
         sum = sum + lastDigit;
