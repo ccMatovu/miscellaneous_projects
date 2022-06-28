@@ -11,12 +11,28 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Main {
     static HashMap<Integer,Long> accounts = new HashMap();
     Connection connection;
+    static String database;
     public static void main(String[] args) {
        // goToBank();
-        String database = getDatabaseName(args);
+        database = getDatabaseName(args);
         createNewDatabase(database);
-        System.out.println(database);
+        //System.out.println(database);
+        goToBank();
     }
+
+    private static void insertAccount(Account account) {
+        final String SQL = "INSERT INTO card (number,pin) VALUES(?,?)";
+        try (Connection con = DriverManager.getConnection("jdbc:sqlite:"+database); PreparedStatement ps = con.prepareStatement(SQL);) {
+            ps.setString(1, String.valueOf(account.cardNumber())); // First question mark will be replaced by name variable - String;
+            ps.setString(2, String.valueOf(account.cardPin())); // Second question mark will be replaced by name variable - Integer;
+            int n = ps.executeUpdate();
+            System.out.println("ahsd ashdfas "+n);
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static String getDatabaseName(String[] args){
         String name="";
         for(int i=0; i<args.length;i++){
@@ -38,20 +54,18 @@ public class Main {
                 System.out.println("A new database has been created.");
 
 
-
                 System.out.println("Opened database successfully");
 
                 stmt = conn.createStatement();
-                String sql = "CREATE TABLE COMPANY " +
+                String sql = "CREATE TABLE card " +
                         "(id INT," +
                         " number TEXT, " +
                         " pin TEXT, " +
                         " balance INTEGER DEFAULT 0)";
+                        //"pin TEXT)";
                 stmt.executeUpdate(sql);
                 stmt.close();
                 conn.close();
-
-
 
 
             }
@@ -91,6 +105,7 @@ public class Main {
             if (choice.equals("1")) {
                 Account account = new Account();
                 accounts.put(account.cardPin(), account.cardNumber());
+                insertAccount(account);
                 System.out.println(account.toString()+"\n");
             } else if (choice.equals("2")) {
                 logedIn = logINMenu();
