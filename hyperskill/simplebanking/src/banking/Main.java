@@ -1,5 +1,7 @@
 package banking;
 
+import java.sql.*;
+import org.sqlite.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -9,8 +11,45 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Main {
     static HashMap<Integer,Long> accounts = new HashMap();
     public static void main(String[] args) {
-        goToBank();
+        createNewDatabase("test.db");
+        //goToBank();
+        String jbUrl = "jdbc:sqlite:/home/charles/edu1.db";
+        try {
+            Connection con = DriverManager.getConnection(jbUrl);
+            String sql = "SELECT * FROM pets ";
+            Statement statement = con.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while (result.next()){
+                String id = result.getString("pet_id");
+                String name = result.getString("name");
+                System.out.println("The name is "+name+"\nthe id is "+id);
+            }
+        }catch (SQLException e){
+            System.out.println("err");
+            e.printStackTrace();
+        }
     }
+
+    public static void createNewDatabase(String fileName) {
+        String url = "jdbc:sqlite:/home/charles/databases/" + fileName;
+
+        try (Connection conn = DriverManager.getConnection(url)) {
+            if (conn != null) {
+                DatabaseMetaData meta = conn.getMetaData();
+                System.out.println("The driver name is " + meta.getDriverName());
+                System.out.println("A new database has been created.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+
+
+
     public static boolean checkLuhm(int sum, int lastDigit){
         sum = sum + lastDigit;
         if(sum%10 == 0){
