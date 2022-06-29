@@ -13,10 +13,8 @@ public class Main {
     Connection connection;
     static String database;
     public static void main(String[] args) {
-       // goToBank();
         database = getDatabaseName(args);
         createNewDatabase(database);
-        //System.out.println(database);
         goToBank();
     }
 
@@ -26,7 +24,6 @@ public class Main {
             ps.setString(1, String.valueOf(account.cardNumber())); // First question mark will be replaced by name variable - String;
             ps.setString(2, String.valueOf(account.cardPin())); // Second question mark will be replaced by name variable - Integer;
             int n = ps.executeUpdate();
-            System.out.println("ahsd ashdfas "+n);
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,7 +59,6 @@ public class Main {
                         " number TEXT, " +
                         " pin TEXT, " +
                         " balance INTEGER DEFAULT 0)";
-                        //"pin TEXT)";
                 stmt.executeUpdate(sql);
                 stmt.close();
                 conn.close();
@@ -126,6 +122,8 @@ public class Main {
                                 displayBalance = false;
                             }
                         }
+                    }else if(balanceChoice.equals("0")){
+                        return;
                     }
                 }else{
                     System.out.println("Wrong card number or PIN!");
