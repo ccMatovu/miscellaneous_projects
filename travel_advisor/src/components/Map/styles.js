@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 export default makeStyles(() => ({
   paper: {
@@ -9,7 +9,7 @@ export default makeStyles(() => ({
     width: '100px',
   },
   mapContainer: {
-    height: '5vh',
+    height: '85vh',
     width: '100%',
   },
   markerContainer: {
@@ -22,5 +22,3 @@ export default makeStyles(() => ({
     cursor: 'pointer',
   },
 }))
-
-
