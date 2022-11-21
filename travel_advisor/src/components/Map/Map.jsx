@@ -1,30 +1,42 @@
-import React from 'react'
-import GoogleMapReact from 'google-map-react'
-import { Paper, Typography, useMediaQuery } from '@material-ui/core'
-import Rating from '@material-ui/lab'
-import { LocationOnOutlined } from '@material-ui/icons/LocationOnOutlined'
+import { useMemo } from 'react';
+import { useLoadScript, Marker } from '@react-google-maps/api';
+import GoogleMapReact  from 'google-map-react';
 
-import makeStyles from './styles'
+export default function Home() {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: 'AIzaSyAsRhrnYxNcZO-o0WKROEPimDh4UkWh7EI',
+  })
+  console.log("loasdd");
 
-const Map = () => {
-  const isMobile = useMediaQuery('(min-width:600px)')
-  const coordinates = { lat: 0, lng: 0 }
-  const classes = makeStyles()
-  return (
-    <div className={classes.mapContainer}>
-      Map
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyAsRhrnYxNcZO-o0WKROEPimDh4UkWh7EI' }}
-        defaultCenter={coordinates}
-        center={coordinates}
-        defaultZoom={14}
-        margin={[50, 50, 50, 50]}
-        options={''}
-        onChange={''}
-        onChildClick={''}
-      ></GoogleMapReact>
-    </div>
-  )
+  if (!isLoaded) return <div>Loading...</div>
+  return <>
+  <div>now</div>
+  <Map googleMapsApiKey />
+  <div>after</div>
+  </>
 }
 
-export default Map
+function Map({}) {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: 'AIzaSyAsRhrnYxNcZO-o0WKROEPimDh4UkWh7EI',
+  })
+  console.log('loasdd')
+
+  if (!isLoaded) return <div>Loading...</div>
+  const center = useMemo(() => ({ lat: 44, lng: -80 }), [])
+  console.log("maphere");
+
+  return (<>
+  <div>here</div>
+    <GoogleMapReact
+      zoom={10}
+      center={center}
+      mapContainerClassName='map-container'
+      bootstrapURLKeys={{ key: {googleMapsApiKey} }}
+    >
+      <Marker position={center} />
+    </GoogleMapReact>
+    </>
+  )
+  
+}
